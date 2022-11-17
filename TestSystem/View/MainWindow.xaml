@@ -1,0 +1,337 @@
+﻿<Window x:Class="TestSystem.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestSystem.View"
+        xmlns:viewModel="clr-namespace:TestSystem.ViewModel"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="720" Width="960" 
+        MinHeight ="500" MinWidth="500"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" 
+        Background="#FF10B000">
+
+    
+    
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+        <Storyboard x:Key="NavigationExpand">
+            <DoubleAnimationUsingKeyFrames 
+                Storyboard.TargetProperty="(FrameworkElement.Width)"
+                Storyboard.TargetName="mainWindowNavigation">
+                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="350"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="NavigationCollapse">
+            <DoubleAnimationUsingKeyFrames 
+                Storyboard.TargetProperty="(FrameworkElement.Width)"
+                Storyboard.TargetName="mainWindowNavigation">
+                <EasingDoubleKeyFrame KeyTime="0" Value="350"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="MouseEnter" SourceName="mainWindowNavigation">
+            <BeginStoryboard Storyboard="{StaticResource NavigationExpand}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave" SourceName="mainWindowNavigation">
+            <BeginStoryboard Storyboard="{StaticResource NavigationCollapse}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Name="windowControlPanel"
+            Grid.ColumnSpan="4"
+            Orientation="Horizontal"            
+            Height="30" 
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            Background="#FF10B000">
+            <StackPanel Name="logoutPanel" Visibility="Collapsed" Orientation="Horizontal">
+                <Label Content="{Binding ElementName=loginTextBox, Path=Text}" Foreground="White" Opacity="0.7" FontFamily="Segoe UI" FontSize="14"/>
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Margin="0,0,40,0" Click="OnLogoutButtonClick">
+                    <materialDesign:PackIcon Kind="Logout" HorizontalAlignment="Center"/>
+                </Button>
+            </StackPanel>
+            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Click="OnMinimizeButtonClick">
+                <materialDesign:PackIcon Kind="WindowMinimize" HorizontalAlignment="Center"/>
+            </Button>
+            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Click="OnMaximizeButtonCLick">
+                <materialDesign:PackIcon Kind="WindowMaximize" HorizontalAlignment="Center"/>
+            </Button>
+            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Click="OnCloseButtonClick">
+                <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Center"/>
+            </Button>
+
+        </StackPanel>
+
+        <Grid
+            Name="mainWindowGrid"
+            Visibility="Collapsed"
+            Grid.Row="1" Grid.RowSpan="4" 
+            Grid.ColumnSpan="4">
+
+            <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}" Name="reloginDialogWindow">
+                <materialDesign:DialogHost.DialogContent>
+                    <Grid Width="400" Height="250" HorizontalAlignment="Center">
+                        <StackPanel>
+                            <Label 
+                                FontSize="30" 
+                                Margin="24,30,30,0" 
+                                HorizontalAlignment="Left" >
+                                Выход
+                            </Label>
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                FontSize="16"
+                                Margin="30,20,30,0"
+                                HorizontalAlignment="Left"
+                                FontFamily="Segoe UI Light"
+                                Foreground="Black">
+                                Вы уверены, что хотите выйти из этой учетной запси?
+                            </TextBlock>
+
+
+                            <StackPanel 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right" 
+                            Margin="30,30,30,0">
+
+                                <Button
+                                    Name="cancelReloginButton"
+                                    Click="OnCancelReloginButtonClick"
+                                    Width="100" Height="35"
+                                    Style="{StaticResource buttonCancel}"
+                                    Margin="0,0,10,0">
+                                    Отмена
+                                </Button>
+                                <Button
+                                    Name="applyReloginButton"
+                                    Click="OnReloginButtonClick"
+                                    Width="100" Height="35"
+                                    Style="{StaticResource buttonApply}">
+                                    Выйти
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+
+            <Grid Background="White" Name="contentGid">
+
+            </Grid>
+            <Grid
+                x:Name="mainWindowNavigation"
+                Width="70"
+                HorizontalAlignment="Left"
+                Background="#FF109020">
+                <ListView Name="OperationsListView" SelectionChanged="OperationsListView_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem Height="70">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Numeric1" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Button1
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Numeric2" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Button2, но побольше.
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Numeric3" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Button3, но уже совсем большая.
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </Grid>
+
+        </Grid>
+
+        <Grid
+            Name="loginGrid"
+            Width="400" Grid.ColumnSpan="4" 
+            Height="400" Grid.RowSpan="5">
+
+            <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}" Name="registrationDialogWindow">
+                <materialDesign:DialogHost.DialogContent>
+                    <Grid Width="400" Height="470" HorizontalAlignment="Center">
+                        <StackPanel>
+                            <Label 
+                                FontSize="30" 
+                                Margin="24,30,30,0" 
+                                HorizontalAlignment="Left" >
+                                Регистрация
+                            </Label>
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                FontSize="16"
+                                Margin="30,20,30,0"
+                                HorizontalAlignment="Left"
+                                FontFamily="Segoe UI Light"
+                                Foreground="Black">
+                                Похоже Вы авторизуетесь первый раз. Укажите свои фамилию, имя и отчество, если ваша почта: 
+                                <TextBlock 
+                                    Text="{Binding ElementName=loginTextBox, Path=Text}"
+                                    FontFamily="Segoe UI"
+                                    FontSize="18"/>
+                                .
+                            </TextBlock>
+                            <TextBox 
+                                Margin="30,15,30,0"
+                                materialDesign:HintAssist.Hint="Фамилия"
+                                materialDesign:HintAssist.Foreground="#FF10B000"
+                                materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                FontFamily="Segoe UI"
+                                Foreground="#404040"
+                                FontSize="18" />
+                            <TextBox 
+                                Margin="30,15,30,0"
+                                materialDesign:HintAssist.Hint="Имя"
+                                materialDesign:HintAssist.Foreground="#FF10B000"
+                                materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                FontFamily="Segoe UI"
+                                Foreground="#404040"
+                                FontSize="18" />
+                            <TextBox 
+                                Margin="30,15,30,0"
+                                materialDesign:HintAssist.Hint="Отчество"
+                                materialDesign:HintAssist.Foreground="#FF10B000"
+                                materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                FontFamily="Segoe UI"
+                                Foreground="#404040"
+                                FontSize="18" />
+
+                            <StackPanel 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right" 
+                            Margin="30,30,30,0">
+
+                                <Button
+                                    Name="cancelRegistrationButton"
+                                    Click="OnCancelRegistrationButtonClick"
+                                    Width="100" Height="35"
+                                    Style="{StaticResource buttonCancel}"
+                                    Margin="0,0,10,0">
+                                    Назад
+                                </Button>
+                                <Button
+                                    Name="applyRegistrationButton"
+                                    Click="OnRegistrationButtonClick"
+                                    Width="100" Height="35"
+                                    Style="{StaticResource buttonApply}">
+                                    Дальше
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+
+            <Border 
+                Background="White">
+                <StackPanel>
+                    <Label 
+                        FontSize="30" 
+                        Margin="24,30,30,0" 
+                        HorizontalAlignment="Left" >
+                        Авторизация
+                    </Label>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        FontSize="16"
+                        Margin="30,20,30,0"
+                        HorizontalAlignment="Left"
+                        FontFamily="Segoe UI Light">
+                        Укажите свой адрес электронной почты в качестве логина.
+                    </TextBlock>
+                    <TextBox 
+                        x:Name="loginTextBox"
+                        Margin="30,15,30,0"
+                        materialDesign:HintAssist.Hint="Логин"
+                        materialDesign:HintAssist.Foreground="#FF10B000"
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        FontFamily="Segoe UI"
+                        Foreground="#404040"
+                        FontSize="18" />
+                    <PasswordBox
+                        Margin="30,15,30,0"
+                        x:Name="loginPasswordBox"
+                        materialDesign:HintAssist.Hint="Пароль"
+                        materialDesign:HintAssist.Foreground="#FF10B000"
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+                        FontFamily="Segoe UI"
+                        Foreground="#404040"
+                        FontSize="18"/>
+                    <StackPanel
+                        Margin="30,30,30,0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button
+                            Name="exitLoginButton"
+                            Click="OnCancelLoginButtonClick"
+                            Width="100" Height="35"
+                            Style="{StaticResource buttonCancel}"
+                            Margin="0,0,10,0">
+                            Выйти
+                        </Button>
+                        <Button
+                            Name="loginButton"
+                            Click="OnLoginButtonClick"
+                            Width="100" Height="35"
+                            Style="{StaticResource buttonApply}">
+                            Войти
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+
+    </Grid>
+
+</Window>
