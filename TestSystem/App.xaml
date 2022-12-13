@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            
             <Style TargetType="{x:Type Button}" x:Key="buttonApply">
                 <Setter Property="Background" Value="#FF10B000"/>
                 <Setter Property="FontFamily" Value="Segoe UI"/>

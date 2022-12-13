@@ -1,4 +1,5 @@
 ﻿<Window x:Class="TestSystem.View.MainWindow"
+        Name="mainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,13 +14,17 @@
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None" 
         Background="#FF10B000">
-
     
+
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
     
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Segoe UI"/>
         </Style>
+        <viewModel:ObjectConverter x:Key="objectConverter"/>
         <Storyboard x:Key="NavigationExpand">
             <DoubleAnimationUsingKeyFrames 
                 Storyboard.TargetProperty="(FrameworkElement.Width)"
@@ -73,28 +78,25 @@
             Background="#FF10B000">
             <StackPanel Name="logoutPanel" Visibility="Collapsed" Orientation="Horizontal">
                 <Label Content="{Binding ElementName=loginTextBox, Path=Text}" Foreground="White" Opacity="0.7" FontFamily="Segoe UI" FontSize="14"/>
-                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Margin="0,0,40,0" Click="OnLogoutButtonClick">
+                <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Margin="0,0,40,0" Command="{Binding LogoutButtonCommand}" CommandParameter="{Binding ElementName=reloginDialogWindow}" >
                     <materialDesign:PackIcon Kind="Logout" HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
-            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Click="OnMinimizeButtonClick">
+            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Command="{Binding MinimizeButtonCommand}" CommandParameter="{Binding ElementName=mainWindow}">
                 <materialDesign:PackIcon Kind="WindowMinimize" HorizontalAlignment="Center"/>
             </Button>
-            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Click="OnMaximizeButtonCLick">
+            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Command="{Binding MaximizeButtonCommand}" CommandParameter="{Binding ElementName=mainWindow}">
                 <materialDesign:PackIcon Kind="WindowMaximize" HorizontalAlignment="Center"/>
             </Button>
-            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Click="OnCloseButtonClick">
+            <Button Cursor="Hand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Height="30" Width="45" Command="{Binding CloseButtonCommand}" CommandParameter="{Binding ElementName=mainWindow}">
                 <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Center"/>
             </Button>
 
         </StackPanel>
 
         <Grid
-            Name="mainWindowGrid"
-            Visibility="Collapsed"
-            Grid.Row="1" Grid.RowSpan="4" 
+            Grid.Row="1" Grid.RowSpan="4"
             Grid.ColumnSpan="4">
-
             <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}" Name="reloginDialogWindow">
                 <materialDesign:DialogHost.DialogContent>
                     <Grid Width="400" Height="250" HorizontalAlignment="Center">
@@ -123,7 +125,7 @@
 
                                 <Button
                                     Name="cancelReloginButton"
-                                    Click="OnCancelReloginButtonClick"
+                                    Command="{Binding ReloginCancelButtonCommand}" CommandParameter="{Binding ElementName=reloginDialogWindow}"
                                     Width="100" Height="35"
                                     Style="{StaticResource buttonCancel}"
                                     Margin="0,0,10,0">
@@ -131,9 +133,18 @@
                                 </Button>
                                 <Button
                                     Name="applyReloginButton"
-                                    Click="OnReloginButtonClick"
+                                    Command="{Binding ReloginButtonCommand}" 
                                     Width="100" Height="35"
                                     Style="{StaticResource buttonApply}">
+
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource objectConverter}">
+                                            <Binding ElementName="logoutPanel" />
+                                            <Binding ElementName="mainWindowGrid"/>
+                                            <Binding ElementName="loginGrid"/>
+                                            <Binding ElementName="reloginDialogWindow"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
                                     Выйти
                                 </Button>
                             </StackPanel>
@@ -142,8 +153,18 @@
                     </Grid>
                 </materialDesign:DialogHost.DialogContent>
             </materialDesign:DialogHost>
+        </Grid>
+
+        <Grid
+            Name="mainWindowGrid"
+            Visibility="Collapsed"
+            Grid.Row="1" Grid.RowSpan="4" 
+            Grid.ColumnSpan="4">
+
+            
 
             <Grid Background="White" Name="contentGid">
+                
 
             </Grid>
             <Grid
@@ -248,7 +269,7 @@
 
                                 <Button
                                     Name="cancelRegistrationButton"
-                                    Click="OnCancelRegistrationButtonClick"
+                                    Command="{Binding RegistrationCancelButtonCommand}" CommandParameter="{Binding ElementName=registrationDialogWindow}"
                                     Width="100" Height="35"
                                     Style="{StaticResource buttonCancel}"
                                     Margin="0,0,10,0">
@@ -256,9 +277,19 @@
                                 </Button>
                                 <Button
                                     Name="applyRegistrationButton"
-                                    Click="OnRegistrationButtonClick"
+                                    Command="{Binding RegistrationButtonCommand}"
                                     Width="100" Height="35"
                                     Style="{StaticResource buttonApply}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource objectConverter}">
+                                            <Binding ElementName="registrationDialogWindow"/>
+                                            <Binding ElementName="loginGrid"/>
+                                            <Binding ElementName="mainWindow"/>
+                                            <Binding ElementName="loginPasswordBox"/>
+                                            <Binding ElementName="logoutPanel"/>
+                                            <Binding ElementName="mainWindowGrid"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
                                     Дальше
                                 </Button>
                             </StackPanel>
@@ -267,7 +298,7 @@
                     </Grid>
                 </materialDesign:DialogHost.DialogContent>
             </materialDesign:DialogHost>
-
+          
             <Border 
                 Background="White">
                 <StackPanel>
@@ -313,7 +344,7 @@
                         HorizontalAlignment="Right">
                         <Button
                             Name="exitLoginButton"
-                            Click="OnCancelLoginButtonClick"
+                            Command="{Binding CloseButtonCommand}" CommandParameter="{Binding ElementName=mainWindow}"
                             Width="100" Height="35"
                             Style="{StaticResource buttonCancel}"
                             Margin="0,0,10,0">
@@ -321,7 +352,7 @@
                         </Button>
                         <Button
                             Name="loginButton"
-                            Click="OnLoginButtonClick"
+                            Command="{Binding LoginButtonCommand}" CommandParameter="{Binding ElementName=registrationDialogWindow}"
                             Width="100" Height="35"
                             Style="{StaticResource buttonApply}">
                             Войти
