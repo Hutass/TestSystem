@@ -10,6 +10,8 @@ using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using System.Globalization;
 using System.Windows.Data;
+using BLL.Interfaces;
+using TestSystem.Model;
 
 namespace TestSystem.ViewModel
 {
@@ -139,7 +141,8 @@ namespace TestSystem.ViewModel
             }
         }
 
-        public MainViewModel()
+        MainModel model;
+        public MainViewModel(IDBCRUD dBCRUD, IAuthorizationService authorizationService)
         {
             MaximizeButtonCommand = new RelayCommand(new Action<object>(OnMaximizeButtonCLick));
             MinimizeButtonCommand = new RelayCommand(new Action<object>(OnMinimizeButtonClick));
@@ -150,7 +153,8 @@ namespace TestSystem.ViewModel
             ReloginButtonCommand = new RelayCommand(new Action<object>(OnReloginButtonClick));
             ReloginCancelButtonCommand = new RelayCommand(new Action<object>(OnCancelReloginButtonClick));
             LogoutButtonCommand = new RelayCommand(new Action<object>(OnLogoutButtonClick));
-
+            model = new MainModel(dBCRUD, authorizationService);
+            dBCRUD.CreatePosition(new BLL.Models.PositionModel { Name = "mvvm" });
         }
         private void OnCloseButtonClick(object obj)
         {

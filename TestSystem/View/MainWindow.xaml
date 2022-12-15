@@ -16,9 +16,7 @@
         Background="#FF10B000">
     
 
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
+
     
     <Window.Resources>
         <Style TargetType="Label">

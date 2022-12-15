@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BLL.Interfaces;
+using BLL.Util;
+using Lab2.Util;
+using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +24,12 @@ namespace TestSystem.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(IDBCRUD dBCRUD, IAuthorizationService authorizationService)
         {
+
             InitializeComponent();
+            DataContext = new MainViewModel(dBCRUD, authorizationService);
+        
         }
 
         private void OperationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
