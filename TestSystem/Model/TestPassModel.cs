@@ -7,26 +7,21 @@ using System.Threading.Tasks;
 
 namespace TestSystem.Model
 {
-    class MainModel
+    class TestPassModel
     {
         IDBCRUD dbOperations;
         IAuthorizationService authorizationService;
 
 
-        public MainModel(IDBCRUD crud, IAuthorizationService auth)
+        public TestPassModel(IDBCRUD crud, IAuthorizationService auth)
         {
             dbOperations = crud;
             authorizationService = auth;
         }
 
-        public int AuthorizationCheck(BLL.Models.PersonModel person)
+        public List<BLL.Models.PositionModel> GetPositions()
         {
-            return authorizationService.Authorize(person);
-        }
-        public void CreatePerson(BLL.Models.PersonModel person)
-        {
-            person.RightsID = 1;
-            dbOperations.CreatePerson(person);
+            return dbOperations.GetAllPositions();
         }
     }
 }

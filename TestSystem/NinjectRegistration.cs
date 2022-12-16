@@ -9,6 +9,7 @@ using BLL;
 using BLL.Interfaces;
 using BLL.Sevices;
 
+
 namespace Lab2.Util
 {
     public class NinjectRegistration : NinjectModule
@@ -16,7 +17,7 @@ namespace Lab2.Util
         public override void Load()
         {
             Bind<IDBCRUD>().To<DataOperator>();
-            Bind<IAuthorizationService>().To<AuthorizationOperator>();
+            Bind<IAuthorizationService>().To<UserAuthorization>();
         }
     }
 }

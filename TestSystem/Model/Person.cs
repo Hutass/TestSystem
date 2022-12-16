@@ -10,7 +10,9 @@ namespace TestSystem.Model
     {
         public int ID { get; set; }
         public Nullable<int> RightsID { get; set; }
-        public string FullName { get; set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string MiddleName { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
         public List<int> TestResults { get; set; }
@@ -19,7 +21,9 @@ namespace TestSystem.Model
         {
             ID = p.ID;
             RightsID = p.RightsID;
-            FullName = p.FullName;
+            Surname = p.Surname;
+            Name = p.Name;
+            MiddleName = p.MiddleName;
             Mail = p.Mail;
             Password = p.Password;
         }

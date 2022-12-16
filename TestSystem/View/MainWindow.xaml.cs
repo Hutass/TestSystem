@@ -24,12 +24,17 @@ namespace TestSystem.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        //временно
+        IDBCRUD dBCRUD;
+        IAuthorizationService authorizationService;
+
         public MainWindow(IDBCRUD dBCRUD, IAuthorizationService authorizationService)
         {
 
             InitializeComponent();
             DataContext = new MainViewModel(dBCRUD, authorizationService);
-        
+            this.dBCRUD = dBCRUD;
+            this.authorizationService = authorizationService;
         }
 
         private void OperationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -42,7 +47,7 @@ namespace TestSystem.View
                     break;
                 case 1:
                     contentGid.Children.Clear();
-                    contentGid.Children.Add(new TestPassUserControl());
+                    contentGid.Children.Add(new TestPassUserControl(dBCRUD, authorizationService));
                     break;
                 case 2:
                     break;

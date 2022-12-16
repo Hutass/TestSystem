@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Sevices
 {
-    class UserAuthorization : IAuthorizationService
+    public class UserAuthorization : IAuthorizationService
     {
         private DBRepos db;
         public UserAuthorization(DBRepos repos)
@@ -18,10 +18,12 @@ namespace BLL.Sevices
         }
         public int Authorize(PersonModel personAuthData)
         {
-            List<PersonModel> person = db.Person.GetList().Select(i => new PersonModel(i)).Where(i => i.Mail == personAuthData.Mail).ToList();
+            if (personAuthData.Mail == null)
+                return 3;
+            List<PersonModel> person = db.Person.GetList().Select(i => new PersonModel(i)).Where(i => i.Mail.TrimEnd().Equals(personAuthData.Mail)).ToList();// db.Person.GetList().Select(i => new PersonModel(i)).Where(i => i.Mail == personAuthData.Mail).ToList();
             if (person.Count == 1)
             {
-                if (person[0].Password == personAuthData.Password)
+                if (person[0].Password.TrimEnd() == personAuthData.Password)
                     return 0;
                 else
                     return 1;

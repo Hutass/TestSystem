@@ -90,7 +90,6 @@ namespace DAL.Repository
                 return reportRepository;
             }
         }
-
         public IRepository<Position> Position
         {
             get

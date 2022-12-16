@@ -74,7 +74,7 @@ namespace BLL
         }
         public int CreatePerson(PersonModel q)
         {
-            Person pr = new Person() { FullName= q.FullName, RightsID=q.RightsID, Password=q.Password, Mail=q.Mail };
+            Person pr = new Person() { Surname=q.Surname, Name=q.Name, MiddleName=q.MiddleName, RightsID=q.RightsID, Password=q.Password, Mail=q.Mail };
             db.Person.Create(pr);
             Save();
             return pr.ID;

@@ -24,6 +24,22 @@ namespace TestSystem.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private BLL.Models.PersonModel _user;
+        public BLL.Models.PersonModel UserLogin
+        {
+            get
+            {
+                if(_user == null) _user = new BLL.Models.PersonModel();
+                return _user;
+               
+            }
+            set
+            {
+                _user = value;
+                OnPropertyChanged(nameof(UserLogin));
+            }
+        }
+
         private ICommand _maximizeButtonCommand;
         public ICommand MaximizeButtonCommand
         {
@@ -154,7 +170,6 @@ namespace TestSystem.ViewModel
             ReloginCancelButtonCommand = new RelayCommand(new Action<object>(OnCancelReloginButtonClick));
             LogoutButtonCommand = new RelayCommand(new Action<object>(OnLogoutButtonClick));
             model = new MainModel(dBCRUD, authorizationService);
-            dBCRUD.CreatePosition(new BLL.Models.PositionModel { Name = "mvvm" });
         }
         private void OnCloseButtonClick(object obj)
         {
@@ -176,15 +191,46 @@ namespace TestSystem.ViewModel
 
         private void OnLoginButtonClick(object obj)
         {
-            ((DialogHost)obj).IsOpen = true;
+            var values = (object[])obj;
+
+            UserLogin.Password = ((PasswordBox)values[6]).Password;
+            switch (model.AuthorizationCheck(UserLogin))
+            {
+                case 0:
+                    AcceptAutorization(obj);
+                    break;
+                case 1:
+                    ((PasswordBox)values[6]).Foreground = System.Windows.Media.Brushes.Red;
+                    break;
+                case 2:
+                    ((DialogHost)values[0]).IsOpen = true;
+                    break;
+                case 3:
+                    break;
+            }
         }
 
         private void OnRegistrationButtonClick(object obj)
         {
             var values = (object[])obj;
 
-            ((DialogHost)values[0]).IsOpen = false;
-            AcceptAutorization(obj);
+            switch (model.AuthorizationCheck(UserLogin))
+            {
+                case 0:
+                    
+                    break;
+                case 1:
+                    
+                    break;
+                case 2:
+                    model.CreatePerson(UserLogin);
+                    ((DialogHost)values[0]).IsOpen = false;
+                    AcceptAutorization(obj);
+                    break;
+                case 3:
+                    break;
+            }
+
         }
         private void OnCancelRegistrationButtonClick(object obj)
         {
@@ -244,6 +290,6 @@ namespace TestSystem.ViewModel
         //    }
         //}
 
-        
+
     }
 }

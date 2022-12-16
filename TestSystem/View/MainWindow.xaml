@@ -207,7 +207,7 @@
 
             <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}" Name="registrationDialogWindow">
                 <materialDesign:DialogHost.DialogContent>
-                    <Grid Width="400" Height="470" HorizontalAlignment="Center">
+                    <Grid Width="400" Height="540" HorizontalAlignment="Center">
                         <StackPanel>
                             <Label 
                                 FontSize="30" 
@@ -229,6 +229,18 @@
                                     FontSize="18"/>
                                 .
                             </TextBlock>
+                            <StackPanel DataContext="{Binding UserLogin}">
+                            <TextBox 
+                                Margin="30,15,30,0"
+                                materialDesign:HintAssist.Hint="Пароль"
+                                materialDesign:HintAssist.Foreground="#FF10B000"
+                                materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                FontFamily="Segoe UI"
+                                Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                                Foreground="#404040"
+                                FontSize="18" />
                             <TextBox 
                                 Margin="30,15,30,0"
                                 materialDesign:HintAssist.Hint="Фамилия"
@@ -237,6 +249,7 @@
                                 materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 FontFamily="Segoe UI"
+                                Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="#404040"
                                 FontSize="18" />
                             <TextBox 
@@ -247,6 +260,7 @@
                                 materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 FontFamily="Segoe UI"
+                                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="#404040"
                                 FontSize="18" />
                             <TextBox 
@@ -257,9 +271,10 @@
                                 materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 FontFamily="Segoe UI"
+                                Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}"
                                 Foreground="#404040"
                                 FontSize="18" />
-
+                            </StackPanel>
                             <StackPanel 
                             Orientation="Horizontal" 
                             HorizontalAlignment="Right" 
@@ -314,7 +329,8 @@
                         FontFamily="Segoe UI Light">
                         Укажите свой адрес электронной почты в качестве логина.
                     </TextBlock>
-                    <TextBox 
+                    <StackPanel DataContext="{Binding UserLogin}">
+                        <TextBox 
                         x:Name="loginTextBox"
                         Margin="30,15,30,0"
                         materialDesign:HintAssist.Hint="Логин"
@@ -324,6 +340,7 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         FontFamily="Segoe UI"
                         Foreground="#404040"
+                        Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged}"
                         FontSize="18" />
                     <PasswordBox
                         Margin="30,15,30,0"
@@ -334,9 +351,10 @@
                         materialDesign:TextFieldAssist.UnderlineBrush="#FF10B000"
                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
                         FontFamily="Segoe UI"
-                        Foreground="#404040"
+                        Foreground="#404040"                    
                         FontSize="18"/>
-                    <StackPanel
+                        </StackPanel>
+                        <StackPanel
                         Margin="30,30,30,0"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
@@ -350,9 +368,20 @@
                         </Button>
                         <Button
                             Name="loginButton"
-                            Command="{Binding LoginButtonCommand}" CommandParameter="{Binding ElementName=registrationDialogWindow}"
+                            Command="{Binding LoginButtonCommand}"
                             Width="100" Height="35"
                             Style="{StaticResource buttonApply}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource objectConverter}">
+                                    <Binding ElementName="registrationDialogWindow"/>
+                                    <Binding ElementName="loginGrid"/>
+                                    <Binding ElementName="mainWindow"/>
+                                    <Binding ElementName="loginPasswordBox"/>
+                                    <Binding ElementName="logoutPanel"/>
+                                    <Binding ElementName="mainWindowGrid"/>
+                                    <Binding ElementName="loginPasswordBox"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
                             Войти
                         </Button>
                     </StackPanel>

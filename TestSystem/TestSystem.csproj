@@ -76,14 +76,16 @@
     </ApplicationDefinition>
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\TestPassModel.cs" />
     <Compile Include="NinjectRegistration.cs" />
     <Compile Include="ViewModel\ObjectConverter.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\TestPassViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestPassUserControl.xaml.cs">
+    <Compile Include="View\TestPassUserControl.xaml.cs">
       <DependentUpon>TestPassUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -94,7 +96,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TestPassUserControl.xaml">
+    <Page Include="View\TestPassUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
