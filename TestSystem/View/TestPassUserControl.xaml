@@ -7,7 +7,14 @@
              xmlns:local="clr-namespace:TestSystem"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <UserControl.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="26"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
             <ColumnDefinition Width="6*"></ColumnDefinition>
@@ -22,17 +29,49 @@
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListBox x:Name="PositionsListBox" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2"
+        
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="2" x:Name="TestStackPanel">
+            <Label Content="Доступные для прохождения тесты" Foreground="Black" Opacity="0.7" HorizontalAlignment="Center"/>
+            <ListBox x:Name="PositionsListBox"
                  ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}">
-            <ListBox.ItemTemplate >
-                <DataTemplate>
-                    <Grid Height="55" Width="{Binding Path=ActualWidth, ElementName=PositionsListBox}"  >
-                        <StackPanel Background="#FF10B000">
-                            <TextBlock HorizontalAlignment="Center" FontSize="25" Text="{Binding Name}"/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <ListBox.ItemTemplate >
+                    <DataTemplate >
+                        <Grid Height="55" Width="{Binding Path=ActualWidth, ElementName=PositionsListBox}"  >
+                            <StackPanel Background="#FF10B000" >
+                                <TextBlock FontSize="25" Text="{Binding Name}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <Grid x:Name="QuestionGrid" Visibility="Collapsed" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="5">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Grid.Row="0" Grid.RowSpan="5">
+                <StackPanel Grid.Row="0" Grid.RowSpan="5">
+                    <StackPanel Orientation="Vertical" x:Name="QuestionStackPanel" >
+                    </StackPanel>
+                    <StackPanel
+                        Margin="30,30,30,0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button
+                            Name="exitLoginButton"
+                            Command="{Binding RejectTestCommand}" CommandParameter="{Binding ElementName=QuestionGrid}"
+                            Width="200" Height="35"
+                            Style="{StaticResource buttonCancel}"
+                            Margin="0,0,10,0">
+                            Отменить прохождение
+                        </Button>
+                        <Button
+                            Name="loginButton"
+                            Command="{Binding AcceptTestCommand}" CommandParameter="{Binding ElementName=QuestionGrid}"
+                            Width="200" Height="35"
+                            Style="{StaticResource buttonApply}">
+                            Отправить результаты
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

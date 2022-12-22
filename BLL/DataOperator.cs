@@ -22,8 +22,8 @@ namespace BLL
 
         public List<QuestionModel> GetAllQuestions()
         {
-            List<QuestionModel> list = db.Question.GetList().Select(i => new QuestionModel(i)).ToList();
-            return list;
+            return db.Question.GetList().Select(i => new QuestionModel(i)).ToList();
+
         }
         public List<QuestionTypeModel> GetAllTypes()
         {

@@ -24,6 +24,8 @@ namespace TestSystem.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public BLL.Models.PersonModel currentUser;
+
         private BLL.Models.PersonModel _user;
         public BLL.Models.PersonModel UserLogin
         {
@@ -156,9 +158,24 @@ namespace TestSystem.ViewModel
                 _logoutButtonCommand = value;
             }
         }
+        //private ICommand _listViewSelectionChangedCommand;
+        //public ICommand ListViewSelectionChangedCommand
+        //{
+        //    get
+        //    {
+        //        return _listViewSelectionChangedCommand;
+        //    }
+        //    set
+        //    {
+        //        _listViewSelectionChangedCommand = value;
+        //    }
+        //}
 
-        MainModel model;
-        public MainViewModel(IDBCRUD dBCRUD, IAuthorizationService authorizationService)
+        MainModel _model;
+        View.MainWindow _control;
+        IDBCRUD _dBCRUD;
+        IAuthorizationService _authorizationService;
+        public MainViewModel(IDBCRUD dBCRUD, IAuthorizationService authorizationService, View.MainWindow control)
         {
             MaximizeButtonCommand = new RelayCommand(new Action<object>(OnMaximizeButtonCLick));
             MinimizeButtonCommand = new RelayCommand(new Action<object>(OnMinimizeButtonClick));
@@ -169,7 +186,11 @@ namespace TestSystem.ViewModel
             ReloginButtonCommand = new RelayCommand(new Action<object>(OnReloginButtonClick));
             ReloginCancelButtonCommand = new RelayCommand(new Action<object>(OnCancelReloginButtonClick));
             LogoutButtonCommand = new RelayCommand(new Action<object>(OnLogoutButtonClick));
-            model = new MainModel(dBCRUD, authorizationService);
+            //ListViewSelectionChangedCommand = new RelayCommand(new Action<object>(OperationsListView_SelectionChangedCommand));
+            currentUser = new BLL.Models.PersonModel();
+            _authorizationService = authorizationService;
+            _model = new MainModel(dBCRUD, authorizationService);
+            _control = control;
         }
         private void OnCloseButtonClick(object obj)
         {
@@ -194,7 +215,7 @@ namespace TestSystem.ViewModel
             var values = (object[])obj;
 
             UserLogin.Password = ((PasswordBox)values[6]).Password;
-            switch (model.AuthorizationCheck(UserLogin))
+            switch (_model.AuthorizationCheck(UserLogin))
             {
                 case 0:
                     AcceptAutorization(obj);
@@ -214,7 +235,7 @@ namespace TestSystem.ViewModel
         {
             var values = (object[])obj;
 
-            switch (model.AuthorizationCheck(UserLogin))
+            switch (_model.AuthorizationCheck(UserLogin))
             {
                 case 0:
                     
@@ -223,7 +244,7 @@ namespace TestSystem.ViewModel
                     
                     break;
                 case 2:
-                    model.CreatePerson(UserLogin);
+                    _model.CreatePerson(UserLogin);
                     ((DialogHost)values[0]).IsOpen = false;
                     AcceptAutorization(obj);
                     break;
@@ -270,19 +291,24 @@ namespace TestSystem.ViewModel
             ((PasswordBox)values[3]).Password = null;
             ((StackPanel)values[4]).Visibility = Visibility.Visible;
             ((Grid)values[5]).Visibility = Visibility.Visible;
+            currentUser = _model.GetPerson(UserLogin.Mail);
+            _control.contentGrid.Children.Clear();
+            _control.contentGrid.Children.Add(new View.StartUserControl());
         }
 
-        //private void OperationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //private void OperationsListView_SelectionChangedCommand(object obj)
         //{
-        //    int index = OperationsListView.SelectedIndex;
+        //    var values = (object[])obj;
+
+        //    int index = ((ListView)values[0]).SelectedIndex;
 
         //    switch (index)
         //    {
         //        case 0:
         //            break;
         //        case 1:
-        //            contentGid.Children.Clear();
-        //            contentGid.Children.Add(new TestPassUserControl());
+        //            ((Grid)values[1]).Children.Clear();
+        //            ((Grid)values[1]).Children.Add(new TestPassUserControl(_dBCRUD, _authorizationService));
         //            break;
         //        case 2:
         //            break;

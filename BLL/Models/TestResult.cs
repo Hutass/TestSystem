@@ -20,6 +20,7 @@ namespace BLL.Models
         {
             ID = t.ID;
             PositionID = t.PositionID;
+            PersonID = t.PersonID;
             Date = t.Date;
             Score = t.Score;
         }

@@ -28,5 +28,9 @@ namespace TestSystem.Model
             person.RightsID = 1;
             dbOperations.CreatePerson(person);
         }
+        public BLL.Models.PersonModel GetPerson(string mail)
+        {
+            return dbOperations.GetAllPersones().Where(i => i.Mail.TrimEnd() == mail).ToList().First();
+        }
     }
 }

@@ -27,14 +27,22 @@ namespace TestSystem.View
         //временно
         IDBCRUD dBCRUD;
         IAuthorizationService authorizationService;
+        MainViewModel _viewModel;
 
         public MainWindow(IDBCRUD dBCRUD, IAuthorizationService authorizationService)
         {
 
             InitializeComponent();
-            DataContext = new MainViewModel(dBCRUD, authorizationService);
+            _viewModel = new MainViewModel(dBCRUD, authorizationService, this);
+            DataContext = _viewModel;         
             this.dBCRUD = dBCRUD;
             this.authorizationService = authorizationService;
+            UpperPanel.MouseLeftButtonDown += DragMove_Window;
+        }
+
+        private void DragMove_Window(object sender, MouseButtonEventArgs e)
+        {
+           DragMove();
         }
 
         private void OperationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,13 +54,21 @@ namespace TestSystem.View
                 case 0:
                     break;
                 case 1:
-                    contentGid.Children.Clear();
-                    contentGid.Children.Add(new TestPassUserControl(dBCRUD, authorizationService));
+                    contentGrid.Children.Clear();
+                    contentGrid.Children.Add(new TestPassUserControl(dBCRUD, authorizationService, _viewModel.currentUser));
                     break;
                 case 2:
+                    contentGrid.Children.Clear();
+                    contentGrid.Children.Add(new TestResultCRUDUserControl(dBCRUD, authorizationService, _viewModel.currentUser));               
                     break;
 
             }
+        }
+
+        public void ChangeControl(UserControl control)
+        {
+            contentGrid.Children.Clear();
+            contentGrid.Children.Add(control);
         }
 
         //private void OnReloginButtonClick(object sender, RoutedEventArgs e)

@@ -15,17 +15,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TestSystem.ViewModel;
 
-namespace TestSystem
+namespace TestSystem.View
 {
     /// <summary>
-    /// Логика взаимодействия для TestPassUserControl.xaml
+    /// Логика взаимодействия для TestResultCRUDUserControl.xaml
     /// </summary>
-    public partial class TestPassUserControl : UserControl
+    public partial class TestResultCRUDUserControl : UserControl
     {
-        public TestPassUserControl(IDBCRUD dBCRUD, IAuthorizationService authorizationService, BLL.Models.PersonModel currentUser)
+        public TestResultCRUDUserControl(IDBCRUD dBCRUD, IAuthorizationService authorizationService, BLL.Models.PersonModel currentUser)
         {
             InitializeComponent();
-            DataContext = new TestPassViewModel(dBCRUD, authorizationService, this, currentUser);
+            DataContext = new TestResultCRUDViewModel(dBCRUD, authorizationService, currentUser);
         }
     }
 }

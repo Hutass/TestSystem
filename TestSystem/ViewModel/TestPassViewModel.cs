@@ -23,15 +23,25 @@ namespace TestSystem.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        TestPassModel model;
-        public TestPassViewModel(IDBCRUD dBCRUD, IAuthorizationService authorizationService)
+        TestPassModel _model;
+        TestPassUserControl _control;
+        BLL.Models.PersonModel _currentUser;
+
+        public TestPassViewModel(IDBCRUD dBCRUD, IAuthorizationService authorizationService, TestPassUserControl userControl, BLL.Models.PersonModel currentUser)
         {        
-            model = new TestPassModel(dBCRUD, authorizationService);
-            Positions = new ObservableCollection<BLL.Models.PositionModel>(model.GetPositions());
-            foreach(BLL.Models.PositionModel p in Positions) { p.Name.TrimEnd(); }
+            _model = new TestPassModel(dBCRUD, authorizationService);
+            _control = userControl;
+            _currentUser = currentUser;
+            Positions = new ObservableCollection<BLL.Models.PositionModel>(_model.GetPositions(_currentUser));
+            foreach(BLL.Models.PositionModel p in Positions) { p.Name = p.Name.TrimEnd(); }
+            RejectTestCommand = new RelayCommand(new Action<object>(OnRejectTest));
+            AcceptTestCommand = new RelayCommand(new Action<object>(OnAcceptTest));
         }
         public ObservableCollection<BLL.Models.PositionModel> Positions { get; set; }
+        public ObservableCollection<BLL.Models.QuestionModel> Questions { get; set; }
+        public ObservableCollection<List<BLL.Models.AnswerModel>> Answers { get; set; }
         private BLL.Models.PositionModel _selectedPosition;
+        private ObservableCollection<List<bool>> _answerCheckers;
         public BLL.Models.PositionModel SelectedPosition
         {
             get
@@ -42,7 +52,163 @@ namespace TestSystem.ViewModel
             {
                 _selectedPosition = value;
                 OnPropertyChanged(nameof(SelectedPosition));
+                QuestionLoad();
             }
         }
-    }
+        public ObservableCollection<List<bool>> AnswerCheckers { 
+            get
+            {
+                return _answerCheckers;
+            }
+            set
+            {
+                _answerCheckers = value;
+            }
+        }
+        private ICommand _rejectTestCommand;
+        public ICommand RejectTestCommand
+        {
+            get
+            {
+                return _rejectTestCommand;
+            }
+            set
+            {
+                _rejectTestCommand = value;
+            }
+        }
+        private ICommand _acceptTestCommand;
+        public ICommand AcceptTestCommand
+        {
+            get
+            {
+                return _acceptTestCommand;
+            }
+            set
+            {
+                _acceptTestCommand = value;
+            }
+        }
+
+        private void OnRejectTest(object obj)
+        {
+            _control.QuestionStackPanel.Children.Clear();
+            _control.TestStackPanel.Visibility = Visibility.Visible;
+            _control.QuestionGrid.Visibility = Visibility.Collapsed;
+            
+        }
+        private void OnAcceptTest(object obj)
+        {
+            SaveResult();
+            _control.QuestionStackPanel.Children.Clear();
+            _control.TestStackPanel.Visibility = Visibility.Visible;
+            _control.QuestionGrid.Visibility = Visibility.Collapsed;
+            Positions.Clear();
+            Positions = new ObservableCollection<BLL.Models.PositionModel>(_model.GetPositions(_currentUser));
+            foreach (BLL.Models.PositionModel p in Positions) { p.Name = p.Name.TrimEnd(); }
+        }
+
+        private void QuestionLoad()
+        {
+            _control.QuestionStackPanel.Children.Clear();
+            _control.TestStackPanel.Visibility = Visibility.Collapsed;
+            _control.QuestionGrid.Visibility = Visibility.Visible;
+            _control.QuestionStackPanel.Children.Add(new Label { Content = _selectedPosition.Name, HorizontalAlignment = HorizontalAlignment.Center });
+            Questions = new ObservableCollection<BLL.Models.QuestionModel>(_model.GetQuestions(_selectedPosition.ID));
+            Answers = new ObservableCollection<List<BLL.Models.AnswerModel>>();
+            AnswerCheckers = new ObservableCollection<List<bool>>();
+            for(int i=0;i<Questions.Count;i++)
+            {
+                _control.QuestionStackPanel.Children.Add(new Label { Content = Questions[i].Text, HorizontalAlignment = HorizontalAlignment.Left });
+
+                Answers.Add(_model.GetAnswers(Questions[i].ID));
+                List<bool> chekers = new List<bool>();
+                if (Questions[i].TypeID != 3)
+                    for (int j = 0; j < Answers[i].Count; j++)
+                    {
+                        chekers.Add(false);
+                    }
+                else
+                    chekers.Add(false);
+                AnswerCheckers.Add(chekers);
+
+                for (int j=0;j<Answers[i].Count;j++)
+                {
+                    switch(Questions[i].TypeID)
+                    {
+                        case 1:
+                            _control.QuestionStackPanel.Children.Add(new RadioButton {Content = Answers[i][j].Text, GroupName = $"Group{i}", IsChecked = AnswerCheckers[i][j]});
+                            break;
+                        case 2:
+                            _control.QuestionStackPanel.Children.Add(new CheckBox { Content = Answers[i][j].Text, IsChecked = AnswerCheckers[i][j] });
+                            break;
+                        case 3:
+                            _control.QuestionStackPanel.Children.Add(new TextBox { });
+                            break;
+                    }
+                }
+            }
+            return;         
+        }
+        private void SaveResult()
+        {
+            List<BLL.Models.AnswerModel> bufAnswers = new List<BLL.Models.AnswerModel>();
+            int j = 0, k = 0;
+            for (int i = 0; i < _control.QuestionStackPanel.Children.Count; i++)
+            {
+                switch (_control.QuestionStackPanel.Children[i])
+                {
+                    case RadioButton b:
+                        if (((RadioButton)_control.QuestionStackPanel.Children[i]).IsChecked == true)
+                            bufAnswers.Add(Answers[j][k]);
+                        if (k < Answers[j].Count-1)
+                            k++;
+                        else
+                        {
+                            k = 0;
+                            if (j < Answers.Count - 1)
+                                j++;
+                            else
+                                break;
+                        }
+                        break;
+                    case CheckBox c:
+                        if (((CheckBox)_control.QuestionStackPanel.Children[i]).IsChecked == true)
+                            bufAnswers.Add(Answers[j][k]);
+                        if (k < Answers[j].Count - 1)
+                            k++;
+                        else
+                        {
+                            k = 0;
+                            if (j < Answers.Count - 1)
+                                j++;
+                            else
+                                break;
+                        }
+                        break;
+                    case TextBox t:
+                        if (((TextBox)_control.QuestionStackPanel.Children[i]).Text != null)
+                            if(((TextBox)_control.QuestionStackPanel.Children[i]).Text == Answers[j][k].Text )
+                            bufAnswers.Add(Answers[j][k]);
+                            else
+                            {
+                                Answers[j][k].Cost = 0 - Answers[j][k].Cost;
+                                bufAnswers.Add(Answers[j][k]);
+                            }
+                        if (k < Answers[j].Count - 1)
+                            k++;
+                        else
+                        {
+                            k = 0;
+                            if (j < Answers.Count - 1)
+                                j++;
+                            else
+                                break;
+                        }
+                        break;
+                }
+            }
+            return;
+        }
+    }  
 }

@@ -1,5 +1,4 @@
-﻿using BLL.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TestSystem.ViewModel;
 
-namespace TestSystem
+namespace TestSystem.View
 {
     /// <summary>
-    /// Логика взаимодействия для TestPassUserControl.xaml
+    /// Логика взаимодействия для StartUserControl.xaml
     /// </summary>
-    public partial class TestPassUserControl : UserControl
+    public partial class StartUserControl : UserControl
     {
-        public TestPassUserControl(IDBCRUD dBCRUD, IAuthorizationService authorizationService, BLL.Models.PersonModel currentUser)
+        public StartUserControl()
         {
             InitializeComponent();
-            DataContext = new TestPassViewModel(dBCRUD, authorizationService, this, currentUser);
         }
     }
 }

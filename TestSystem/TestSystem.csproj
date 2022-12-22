@@ -77,13 +77,18 @@
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\TestPassModel.cs" />
+    <Compile Include="Model\TestResultCRUDModel.cs" />
     <Compile Include="NinjectRegistration.cs" />
     <Compile Include="ViewModel\ObjectConverter.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TestPassViewModel.cs" />
+    <Compile Include="ViewModel\TestResultCRUDViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StartUserControl.xaml.cs">
+      <DependentUpon>StartUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TestPassUserControl.xaml.cs">
       <DependentUpon>TestPassUserControl.xaml</DependentUpon>
@@ -92,11 +97,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\TestResultCRUDUserControl.xaml.cs">
+      <DependentUpon>TestResultCRUDUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\StartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TestPassUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TestResultCRUDUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
