@@ -57,6 +57,7 @@ namespace BLL.Sevices
             TextStamp header = new TextStamp($"{DateTime.Today}");
             header.HorizontalAlignment = HorizontalAlignment.Right;
             header.TopMargin = 20;
+            header.RightMargin = 20;
             header.VerticalAlignment = VerticalAlignment.Top;
             page.AddStamp(header);
             IDBCRUD crud = new DataOperator(db);
@@ -65,8 +66,8 @@ namespace BLL.Sevices
             for (int i=0;i<questions.Count;i++)
             {
                 page.Paragraphs.Add(new Aspose.Pdf.Text.TextFragment($""));
-                page.Paragraphs.Add(new Aspose.Pdf.Text.TextFragment($"{questions[i].Text}:"));
-                foreach(BLL.Models.AnswerModel answer in answers) { if(answer.QuestionID == questions[i].ID) page.Paragraphs.Add(new Aspose.Pdf.Text.TextFragment($"{answer.Text.TrimEnd()} / {answer.Cost}")); }
+                page.Paragraphs.Add(new Aspose.Pdf.Text.TextFragment($"{questions[i].Text.TrimEnd()}:"));
+                foreach(BLL.Models.AnswerModel answer in answers) { if(answer.QuestionID == questions[i].ID) page.Paragraphs.Add(new Aspose.Pdf.Text.TextFragment($"{answer.Text.TrimEnd()} / {answer.Cost} баллов")); }
             }
 
             CheckFolder();
