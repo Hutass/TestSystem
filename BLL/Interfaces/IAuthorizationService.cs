@@ -10,5 +10,6 @@ namespace BLL.Interfaces
     public interface IAuthorizationService
     {
         int Authorize(PersonModel person);
+        void SubmitReport(List<AnswerModel> answers, TestResultModel result, PersonModel person);
     }
 }

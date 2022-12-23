@@ -32,5 +32,22 @@ namespace BLL.Sevices
                 return 2;
 
         }
+        public void SubmitReport(List<AnswerModel> answers, TestResultModel result, PersonModel person)
+        {
+            double score = 0;
+            foreach(AnswerModel answer in answers) { score += (double)answer.Cost; }
+            TestResultModel bufResult = new TestResultModel();
+            bufResult.Date = DateTime.Now;
+            bufResult.PersonID = person.ID;
+            bufResult.PositionID = result.PositionID;
+            bufResult.ID = result.ID;
+            bufResult.Score = score;
+            IDBCRUD crud = new DataOperator(db);
+            crud.UpdateTestResult(bufResult);
+        }
+        public void SaveReport(List<AnswerModel> answers, TestResultModel result, PersonModel person)
+        {
+
+        }
     }
 }

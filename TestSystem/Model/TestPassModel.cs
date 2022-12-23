@@ -32,5 +32,11 @@ namespace TestSystem.Model
         {
             return dbOperations.GetAllAnswers().Where(i => i.QuestionID == questionID).ToList();
         }
+
+        public void SaveResults(List<BLL.Models.AnswerModel> answers, BLL.Models.PositionModel position, BLL.Models.PersonModel person)
+        {
+            BLL.Models.TestResultModel result = dbOperations.GetAllResults().Where(i => i.PositionID == position.ID).Where(i => i.PersonID == person.ID).Where(i => i.Score == 0).First();
+            authorizationService.SubmitReport(answers, result, person);
+        }
     }
 }

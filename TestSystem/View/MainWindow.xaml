@@ -205,6 +205,30 @@
                             </TextBlock>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem Height="70">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Numeric5" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Button5.
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Numeric6" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Button6
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Numeric7" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Button 7
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
             </Grid>
 

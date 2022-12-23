@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TestSystem.View.TestResultCRUDUserControl"
+﻿<UserControl x:Class="TestSystem.View.QuestionCRUDUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -29,47 +29,47 @@
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
+        
         <StackPanel Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" Grid.ColumnSpan="2">
             <StackPanel Margin="5" Orientation="Horizontal">
                 <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Тест" />
-                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Пользователь" />
-                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Дата прохождения" />
-                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Результат" />
+                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Тип вопроса" />
+                <TextBlock Width="{Binding Path=ActualWidth, ElementName=halfOfWidth}" Text="Текст вопроса" />
             </StackPanel>
             <Grid Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2">
-            <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Grid.Row="1" Height="400">
-                <ListBox Grid.Row="1" ItemsSource="{Binding Results}" Name="Result"
-                 SelectedItem="{Binding SelectedResult}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="5" Orientation="Horizontal" Height="30">
+                <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Grid.Row="1" Height="400">
+                    <ListBox Grid.Row="1" ItemsSource="{Binding Questions}" Name="Result"
+                 SelectedItem="{Binding SelectedQuestion}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Orientation="Horizontal" Height="30">
                                     <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=PositionID}" />
-                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=PersonID}"  />
-                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=Date}" />
-                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=Score}" />
+                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=TypeID}"  />
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                    <TextBlock TextWrapping="Wrap" Width="{Binding Path=ActualWidth, ElementName=halfOfWidth}" FontSize="18" Text="{Binding Path=Text}" />
+                                    </ScrollViewer>
                                 </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
-        </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </Grid>
             <StackPanel Orientation="Horizontal">
-                <StackPanel  Grid.Row="1" Grid.Column="1" Width="{Binding Path=ActualWidth, ElementName=halfOfWidth}" DataContext="{Binding SelectedResult}">
-                
-                <TextBlock Text="Номер теста" />
-                <TextBox Text="{Binding PositionID, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Номер пользователя" />
-                <TextBox Text="{Binding PersonID, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Баллы за тест" />
-                <TextBox Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Дата прохождения теста" />
-                <Calendar SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"  Background="White"/>
-            </StackPanel>
+                <StackPanel  Grid.Row="1" Grid.Column="1" Width="{Binding Path=ActualWidth, ElementName=halfOfWidth}" DataContext="{Binding SelectedQuestion}">
+
+                    <TextBlock Text="Номер теста" />
+                    <TextBox Text="{Binding PositionID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Номер типа" />
+                    <TextBox Text="{Binding TypeID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Текст вопроса" />
+                    <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
+
+                </StackPanel>
                 <StackPanel Margin="10,0,0,0"  Grid.Row="1" Grid.Column="1" Width="{Binding Path=ActualWidth, ElementName=halfOfWidth}">
                     <TextBlock Text="Список тестов" />
                     <ComboBox x:Name="PositionComboBox" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left"  Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" IsSynchronizedWithCurrentItem="True" />
-                    <TextBlock Text="Список пользователей" />
-                    <ComboBox x:Name="PersonComboBox" ItemsSource="{Binding Persons}" SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Mail" SelectedValuePath="ID" HorizontalAlignment="Left"  Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" IsSynchronizedWithCurrentItem="True" />
+                    <TextBlock Text="Список типов" />
+                    <ComboBox x:Name="PersonComboBox" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left"  Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" IsSynchronizedWithCurrentItem="True" />
 
                     <StackPanel
                         Margin="0,30,30,0"
@@ -93,21 +93,23 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            
+
         </StackPanel>
+        
         <Grid Grid.Column="0" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid x:Name="referenceWidth" Grid.Column="0" Grid.ColumnSpan="1"></Grid>
             <Grid x:Name="halfOfWidth" Grid.Column="0" Grid.ColumnSpan="2"></Grid>
         </Grid>
-
+        
     </Grid>
-        </ScrollViewer>
+    </ScrollViewer>
 
 </UserControl>
+

@@ -65,7 +65,18 @@ namespace TestSystem.View
                     contentGrid.Children.Clear();
                     contentGrid.Children.Add(new PositionCRUDUserControl(dBCRUD, authorizationService, _viewModel.currentUser));
                     break;
-
+                case 4:
+                    contentGrid.Children.Clear();
+                    contentGrid.Children.Add(new QuestionCRUDUserControl(dBCRUD, authorizationService, _viewModel.currentUser));
+                    break;
+                case 5:
+                    contentGrid.Children.Clear();
+                    contentGrid.Children.Add(new AnswerCRUDUserControl(dBCRUD, authorizationService, _viewModel.currentUser));
+                    break;
+                case 6:
+                    contentGrid.Children.Clear();
+                    contentGrid.Children.Add(new PersonCRUDUserControl(dBCRUD, authorizationService, _viewModel.currentUser));
+                    break;
             }
         }
 

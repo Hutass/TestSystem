@@ -21,6 +21,7 @@
             <Setter Property="FontSize" Value="26"/>
         </Style>
     </UserControl.Resources>
+    <ScrollViewer>
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
@@ -81,4 +82,5 @@
             </ScrollViewer>
         </Grid>
     </Grid>
+        </ScrollViewer>
 </UserControl>
