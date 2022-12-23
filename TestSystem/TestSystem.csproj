@@ -74,23 +74,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AnswerCRUDModel.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\PersonCRUDModel.cs" />
     <Compile Include="Model\PositionCRUDModel.cs" />
+    <Compile Include="Model\QuestionCRUDModel.cs" />
+    <Compile Include="Model\SetTestModel.cs" />
     <Compile Include="Model\TestPassModel.cs" />
     <Compile Include="Model\TestResultCRUDModel.cs" />
+    <Compile Include="Model\UserResultsModel.cs" />
     <Compile Include="NinjectRegistration.cs" />
+    <Compile Include="ViewModel\AnswerCRUDViewModel.cs" />
     <Compile Include="ViewModel\ObjectConverter.cs" />
+    <Compile Include="ViewModel\PersonCRUDViewModel.cs" />
     <Compile Include="ViewModel\PositionCRUDViewModel.cs" />
+    <Compile Include="ViewModel\QuestionCRUDViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\SetTestViewModel.cs" />
     <Compile Include="ViewModel\TestPassViewModel.cs" />
     <Compile Include="ViewModel\TestResultCRUDViewModel.cs" />
+    <Compile Include="ViewModel\UserResultsViewModel.cs" />
+    <Compile Include="View\AnswerCRUDUserControl.xaml.cs">
+      <DependentUpon>AnswerCRUDUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PersonCRUDUserControl.xaml.cs">
+      <DependentUpon>PersonCRUDUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PositionCRUDUserControl.xaml.cs">
       <DependentUpon>PositionCRUDUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuestionCRUDUserControl.xaml.cs">
+      <DependentUpon>QuestionCRUDUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SetTestUserControl.xaml.cs">
+      <DependentUpon>SetTestUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StartUserControl.xaml.cs">
       <DependentUpon>StartUserControl.xaml</DependentUpon>
@@ -105,11 +127,30 @@
     <Compile Include="View\TestResultCRUDUserControl.xaml.cs">
       <DependentUpon>TestResultCRUDUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserResultsUserControl.xaml.cs">
+      <DependentUpon>UserResultsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\AnswerCRUDUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PersonCRUDUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PositionCRUDUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuestionCRUDUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SetTestUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TestResultCRUDUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserResultsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

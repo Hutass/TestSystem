@@ -51,9 +51,10 @@ namespace TestSystem.ViewModel
             set
             {
                 _selectedPosition = value;
-                OnPropertyChanged(nameof(SelectedPosition));
-                QuestionLoad();
-            }
+                OnPropertyChanged("SelectedPosition");
+                if (_selectedPosition != null)
+                    QuestionLoad();
+                }
         }
 
         private ICommand _rejectTestCommand;
@@ -94,9 +95,8 @@ namespace TestSystem.ViewModel
             _control.QuestionStackPanel.Children.Clear();
             _control.TestStackPanel.Visibility = Visibility.Visible;
             _control.QuestionGrid.Visibility = Visibility.Collapsed;
-            Positions.Clear();
-            Positions = new ObservableCollection<BLL.Models.PositionModel>(_model.GetPositions(_currentUser));
-            foreach (BLL.Models.PositionModel p in Positions) { p.Name = p.Name.TrimEnd(); }
+            Positions.Remove(_selectedPosition);
+
         }
 
         private void QuestionLoad()
@@ -175,7 +175,7 @@ namespace TestSystem.ViewModel
                             bufAnswers.Add(Answers[j][k]);
                             else
                             {
-                                Answers[j][k].Cost = 0 - Answers[j][k].Cost;
+                                Answers[j][k].Cost = 0;
                                 bufAnswers.Add(Answers[j][k]);
                             }
                         if (k < Answers[j].Count - 1)
@@ -191,7 +191,7 @@ namespace TestSystem.ViewModel
                         break;
                 }
             }
-            return;
+            _model.SaveResults(bufAnswers, _selectedPosition, _currentUser);
         }
     }  
 }

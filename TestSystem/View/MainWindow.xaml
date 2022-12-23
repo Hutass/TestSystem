@@ -173,35 +173,67 @@
                 Background="#FF109020">
                 <ListView Name="OperationsListView" SelectionChanged="OperationsListView_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
-                    <ListViewItem Height="70">
+                    <ListViewItem Height="70" Name="Item1">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Numeric1" Width="30" Height="30" Margin="12" />
+                            <materialDesign:PackIcon Kind="ArrowRightBold" Width="30" Height="30" Margin="12" />
                             <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
-                                Button1
+                                Назначить тестирование
                             </TextBlock>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="70">
+                    <ListViewItem Height="70" Name="Item2">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Numeric2" Width="30" Height="30" Margin="12"/>
+                            <materialDesign:PackIcon Kind="BookAlert" Width="30" Height="30" Margin="12"/>
                             <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
-                            Button2, но побольше.
+                            Пройти тестирование
                             </TextBlock>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="70">
+                    <ListViewItem Height="70" Name="Item3">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Numeric3" Width="30" Height="30" Margin="12"/>
+                            <materialDesign:PackIcon Kind="BookCheck" Width="30" Height="30" Margin="12"/>
                             <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
-                            Button3, но уже совсем большая.
+                            Посмотреть результаты тестирования
                             </TextBlock>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="70">
+                    <ListViewItem Height="70" Name="Item4">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="Numeric4" Width="30" Height="30" Margin="12"/>
+                            <materialDesign:PackIcon Kind="CheckBold" Width="30" Height="30" Margin="12"/>
                             <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
-                            Button4.
+                            Результаты
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70" Name="Item5">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="FolderFile" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Тесты
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70" Name="Item6">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="FolderQuestion" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Вопросы
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70" Name="Item7">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="FolderCheck" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Ответы на вопросы
+                            </TextBlock>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="70" Name="Item8">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="FolderAccount" Width="30" Height="30" Margin="12"/>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="18" Margin="10,0,0,0">
+                            Пользователи
                             </TextBlock>
                         </StackPanel>
                     </ListViewItem>
