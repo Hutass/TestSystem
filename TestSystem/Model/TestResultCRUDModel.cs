@@ -24,5 +24,34 @@ namespace TestSystem.Model
         {
             return dbOperations.GetAllResults().ToList();
         }
+        public List<BLL.Models.PositionModel> GetPositions()
+        {
+            return dbOperations.GetAllPositions().ToList();
+        }
+        public List<BLL.Models.PersonModel> GetPersons()
+        {
+            return dbOperations.GetAllPersones().ToList();
+        }
+        public int CreateResult(BLL.Models.TestResultModel result)
+        {
+           return dbOperations.CreateTestResult(result);
+        }
+        public void DeleteResult(BLL.Models.TestResultModel result)
+        {
+            dbOperations.DeleteTestResult(result);
+        }
+        public void UpdateResult(BLL.Models.TestResultModel result)
+        {
+            if (result.PersonID == null)
+                result.PersonID = 0;
+            if (result.PositionID == null)
+                result.PositionID = 0;
+            if (result.Score == null)
+                result.Score = 0;
+            if (result.Date == null)
+                result.Date = DateTime.Now;
+
+            dbOperations.UpdateTestResult(result);
+        }
     }
 }

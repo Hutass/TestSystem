@@ -31,5 +31,12 @@ namespace BLL.Interfaces
         void UpdateQuestion(QuestionModel q);
         void UpdateQuestionType(QuestionTypeModel q);
         void UpdateTestResult(TestResultModel q);
+
+        void DeleteAnswer(AnswerModel q);
+        void DeletePerson(PersonModel q);
+        void DeletePosition(PositionModel q);
+        void DeleteQuestion(QuestionModel q);
+        void DeleteQuestionType(QuestionTypeModel q);
+        void DeleteTestResult(TestResultModel q);
     }
 }

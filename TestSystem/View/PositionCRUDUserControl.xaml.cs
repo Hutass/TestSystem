@@ -18,14 +18,14 @@ using TestSystem.ViewModel;
 namespace TestSystem.View
 {
     /// <summary>
-    /// Логика взаимодействия для TestResultCRUDUserControl.xaml
+    /// Логика взаимодействия для PositionCRUDUserControl.xaml
     /// </summary>
-    public partial class TestResultCRUDUserControl : UserControl
+    public partial class PositionCRUDUserControl : UserControl
     {
-        public TestResultCRUDUserControl(IDBCRUD dBCRUD, IAuthorizationService authorizationService, BLL.Models.PersonModel currentUser)
+        public PositionCRUDUserControl(IDBCRUD dBCRUD, IAuthorizationService authorizationService, BLL.Models.PersonModel currentUser)
         {
             InitializeComponent();
-            DataContext = new TestResultCRUDViewModel(dBCRUD, authorizationService, this, currentUser);
+            DataContext = new PositionCRUDViewModel(dBCRUD, authorizationService, currentUser);
         }
     }
 }

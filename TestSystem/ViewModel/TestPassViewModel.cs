@@ -41,7 +41,7 @@ namespace TestSystem.ViewModel
         public ObservableCollection<BLL.Models.QuestionModel> Questions { get; set; }
         public ObservableCollection<List<BLL.Models.AnswerModel>> Answers { get; set; }
         private BLL.Models.PositionModel _selectedPosition;
-        private ObservableCollection<List<bool>> _answerCheckers;
+
         public BLL.Models.PositionModel SelectedPosition
         {
             get
@@ -55,16 +55,7 @@ namespace TestSystem.ViewModel
                 QuestionLoad();
             }
         }
-        public ObservableCollection<List<bool>> AnswerCheckers { 
-            get
-            {
-                return _answerCheckers;
-            }
-            set
-            {
-                _answerCheckers = value;
-            }
-        }
+
         private ICommand _rejectTestCommand;
         public ICommand RejectTestCommand
         {
@@ -116,31 +107,23 @@ namespace TestSystem.ViewModel
             _control.QuestionStackPanel.Children.Add(new Label { Content = _selectedPosition.Name, HorizontalAlignment = HorizontalAlignment.Center });
             Questions = new ObservableCollection<BLL.Models.QuestionModel>(_model.GetQuestions(_selectedPosition.ID));
             Answers = new ObservableCollection<List<BLL.Models.AnswerModel>>();
-            AnswerCheckers = new ObservableCollection<List<bool>>();
+
             for(int i=0;i<Questions.Count;i++)
             {
-                _control.QuestionStackPanel.Children.Add(new Label { Content = Questions[i].Text, HorizontalAlignment = HorizontalAlignment.Left });
+                _control.QuestionStackPanel.Children.Add(new TextBlock { Text = Questions[i].Text, HorizontalAlignment = HorizontalAlignment.Left, TextWrapping = TextWrapping.Wrap });
 
                 Answers.Add(_model.GetAnswers(Questions[i].ID));
-                List<bool> chekers = new List<bool>();
-                if (Questions[i].TypeID != 3)
-                    for (int j = 0; j < Answers[i].Count; j++)
-                    {
-                        chekers.Add(false);
-                    }
-                else
-                    chekers.Add(false);
-                AnswerCheckers.Add(chekers);
+               
 
                 for (int j=0;j<Answers[i].Count;j++)
                 {
                     switch(Questions[i].TypeID)
                     {
                         case 1:
-                            _control.QuestionStackPanel.Children.Add(new RadioButton {Content = Answers[i][j].Text, GroupName = $"Group{i}", IsChecked = AnswerCheckers[i][j]});
+                            _control.QuestionStackPanel.Children.Add(new RadioButton {Content = Answers[i][j].Text, GroupName = $"Group{i}", IsChecked = false});
                             break;
                         case 2:
-                            _control.QuestionStackPanel.Children.Add(new CheckBox { Content = Answers[i][j].Text, IsChecked = AnswerCheckers[i][j] });
+                            _control.QuestionStackPanel.Children.Add(new CheckBox { Content = Answers[i][j].Text, IsChecked = false });
                             break;
                         case 3:
                             _control.QuestionStackPanel.Children.Add(new TextBox { });

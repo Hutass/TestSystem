@@ -105,27 +105,83 @@ namespace BLL
         }            
         public void UpdateAnswer(AnswerModel q)
         {
-            throw new NotImplementedException();
+            Answer answ = db.Answer.GetItem(q.ID);
+            answ.Cost = q.Cost;
+            answ.QuestionID = q.QuestionID;
+            answ.Text = q.Text;
+            Save();
         }
 
         public void UpdatePerson(PersonModel q)
         {
-            throw new NotImplementedException();
+            Person pers = db.Person.GetItem(q.ID);
+            pers.Mail = q.Mail;
+            pers.MiddleName = q.MiddleName;
+            pers.Name = q.Name;
+            pers.Password = q.Password;
+            pers.RightsID = q.RightsID;
+            pers.Surname = q.Surname;
+            Save();
         }
 
         public void UpdatePosition(PositionModel q)
         {
-            throw new NotImplementedException();
+            Position posm = db.Position.GetItem(q.ID);
+            posm.Name = q.Name;
+            Save();
         }
 
         public void UpdateQuestionType(QuestionTypeModel q)
         {
-            throw new NotImplementedException();
+            QuestionType quest = db.QuestionType.GetItem(q.ID);
+            quest.Name = q.Name;
+            Save();
         }
 
         public void UpdateTestResult(TestResultModel q)
         {
-            throw new NotImplementedException();
+            TestResult testr = db.TestResult.GetItem(q.ID);
+            testr.PersonID = q.PersonID;
+            testr.PositionID = q.PositionID;
+            testr.Score = q.Score;
+            testr.Date = q.Date;
+            Save();
+        }
+
+        public void DeleteAnswer(AnswerModel q)
+        {
+            db.Answer.Delete(q.ID);
+            Save();
+        }
+
+        public void DeletePerson(PersonModel q)
+        {
+            db.Person.Delete(q.ID);
+            Save();
+        }
+
+        public void DeletePosition(PositionModel q)
+        {
+            db.Position.Delete(q.ID);
+            Save();
+        }
+
+        public void DeleteQuestion(QuestionModel q)
+        {
+            db.Question.Delete(q.ID);
+            Save();
+        }
+
+        public void DeleteQuestionType(QuestionTypeModel q)
+        {
+            db.QuestionType.Delete(q.ID);
+            Save();
+        }
+
+        public void DeleteTestResult(TestResultModel q)
+        {
+            db.TestResult.Delete(q.ID);
+            Save();
         }
 
         public void Save()

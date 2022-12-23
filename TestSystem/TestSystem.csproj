@@ -76,16 +76,21 @@
     </ApplicationDefinition>
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\PositionCRUDModel.cs" />
     <Compile Include="Model\TestPassModel.cs" />
     <Compile Include="Model\TestResultCRUDModel.cs" />
     <Compile Include="NinjectRegistration.cs" />
     <Compile Include="ViewModel\ObjectConverter.cs" />
+    <Compile Include="ViewModel\PositionCRUDViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TestPassViewModel.cs" />
     <Compile Include="ViewModel\TestResultCRUDViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PositionCRUDUserControl.xaml.cs">
+      <DependentUpon>PositionCRUDUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StartUserControl.xaml.cs">
       <DependentUpon>StartUserControl.xaml</DependentUpon>
@@ -101,6 +106,10 @@
       <DependentUpon>TestResultCRUDUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PositionCRUDUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

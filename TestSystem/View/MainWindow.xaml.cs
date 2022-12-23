@@ -61,6 +61,10 @@ namespace TestSystem.View
                     contentGrid.Children.Clear();
                     contentGrid.Children.Add(new TestResultCRUDUserControl(dBCRUD, authorizationService, _viewModel.currentUser));               
                     break;
+                case 3:
+                    contentGrid.Children.Clear();
+                    contentGrid.Children.Add(new PositionCRUDUserControl(dBCRUD, authorizationService, _viewModel.currentUser));
+                    break;
 
             }
         }
