@@ -268,6 +268,16 @@ namespace TestSystem.ViewModel
             ((Grid)values[1]).Visibility = Visibility.Collapsed;
             ((Grid)values[2]).Visibility = Visibility.Visible;
             ((DialogHost)values[3]).IsOpen = false;
+
+
+            _control.Item1.Visibility = Visibility.Visible;
+            _control.Item2.Visibility = Visibility.Visible;
+            _control.Item3.Visibility = Visibility.Visible;
+            _control.Item4.Visibility = Visibility.Visible;
+            _control.Item5.Visibility = Visibility.Visible;
+            _control.Item6.Visibility = Visibility.Visible;
+            _control.Item7.Visibility = Visibility.Visible;
+            _control.Item8.Visibility = Visibility.Visible;
         }
         private void OnCancelReloginButtonClick(object obj)
         {
@@ -279,6 +289,7 @@ namespace TestSystem.ViewModel
         private void OnLogoutButtonClick(object obj)
         {
             ((DialogHost)obj).IsOpen = true;
+
         }
 
 
@@ -294,6 +305,29 @@ namespace TestSystem.ViewModel
             currentUser = _model.GetPerson(UserLogin.Mail);
             _control.contentGrid.Children.Clear();
             _control.contentGrid.Children.Add(new View.StartUserControl());
+
+            switch (currentUser.RightsID)
+            {
+                case 1:
+                    _control.Item1.Visibility = Visibility.Collapsed;
+                    _control.Item4.Visibility = Visibility.Collapsed;
+                    _control.Item5.Visibility = Visibility.Collapsed;
+                    _control.Item6.Visibility = Visibility.Collapsed;
+                    _control.Item7.Visibility = Visibility.Collapsed;
+                    _control.Item8.Visibility = Visibility.Collapsed;
+                    break;
+                case 2:
+                    _control.Item2.Visibility = Visibility.Collapsed;
+                    _control.Item4.Visibility = Visibility.Collapsed;
+                    _control.Item5.Visibility = Visibility.Collapsed;
+                    _control.Item6.Visibility = Visibility.Collapsed;
+                    _control.Item7.Visibility = Visibility.Collapsed;
+                    _control.Item8.Visibility = Visibility.Collapsed;
+                    break;
+                case 3:
+                    _control.Item2.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
 
         //private void OperationsListView_SelectionChangedCommand(object obj)

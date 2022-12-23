@@ -80,8 +80,10 @@
     <Compile Include="Model\PersonCRUDModel.cs" />
     <Compile Include="Model\PositionCRUDModel.cs" />
     <Compile Include="Model\QuestionCRUDModel.cs" />
+    <Compile Include="Model\SetTestModel.cs" />
     <Compile Include="Model\TestPassModel.cs" />
     <Compile Include="Model\TestResultCRUDModel.cs" />
+    <Compile Include="Model\UserResultsModel.cs" />
     <Compile Include="NinjectRegistration.cs" />
     <Compile Include="ViewModel\AnswerCRUDViewModel.cs" />
     <Compile Include="ViewModel\ObjectConverter.cs" />
@@ -90,8 +92,10 @@
     <Compile Include="ViewModel\QuestionCRUDViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\SetTestViewModel.cs" />
     <Compile Include="ViewModel\TestPassViewModel.cs" />
     <Compile Include="ViewModel\TestResultCRUDViewModel.cs" />
+    <Compile Include="ViewModel\UserResultsViewModel.cs" />
     <Compile Include="View\AnswerCRUDUserControl.xaml.cs">
       <DependentUpon>AnswerCRUDUserControl.xaml</DependentUpon>
     </Compile>
@@ -107,6 +111,9 @@
     <Compile Include="View\QuestionCRUDUserControl.xaml.cs">
       <DependentUpon>QuestionCRUDUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SetTestUserControl.xaml.cs">
+      <DependentUpon>SetTestUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StartUserControl.xaml.cs">
       <DependentUpon>StartUserControl.xaml</DependentUpon>
     </Compile>
@@ -119,6 +126,9 @@
     </Compile>
     <Compile Include="View\TestResultCRUDUserControl.xaml.cs">
       <DependentUpon>TestResultCRUDUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserResultsUserControl.xaml.cs">
+      <DependentUpon>UserResultsUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="View\AnswerCRUDUserControl.xaml">
       <SubType>Designer</SubType>
@@ -140,6 +150,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SetTestUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StartUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TestResultCRUDUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserResultsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
