@@ -1,8 +1,8 @@
 ﻿<Application x:Class="TestSystem.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TestSystem"
-             StartupUri="View\MainWindow.xaml">
+             xmlns:local="clr-namespace:TestSystem">
+             
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            
             <Style TargetType="{x:Type Button}" x:Key="buttonApply">
                 <Setter Property="Background" Value="#FF10B000"/>
                 <Setter Property="FontFamily" Value="Segoe UI"/>

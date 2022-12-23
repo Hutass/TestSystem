@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="TestSystem.View.TestResultCRUDUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestSystem.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="22"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" Grid.ColumnSpan="2">
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Тест" />
+                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Пользователь" />
+                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Дата прохождения" />
+                <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" Text="Результат" />
+            </StackPanel>
+            <Grid Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True" Grid.Row="1" Height="400">
+                <ListBox Grid.Row="1" ItemsSource="{Binding Results}" Name="Result"
+                 SelectedItem="{Binding SelectedResult}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5" Orientation="Horizontal" Height="30">
+                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=PositionID}" />
+                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=PersonID}"  />
+                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=Date}" />
+                                    <TextBlock Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" FontSize="18" Text="{Binding Path=Score}" />
+                                </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel  Grid.Row="1" Grid.Column="1" Width="{Binding Path=ActualWidth, ElementName=halfOfWidth}" DataContext="{Binding SelectedResult}">
+                
+                <TextBlock Text="Номер теста" />
+                <TextBox Text="{Binding PositionID, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Номер пользователя" />
+                <TextBox Text="{Binding PersonID, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Баллы за тест" />
+                <TextBox Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Дата прохождения теста" />
+                <Calendar SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"  Background="White"/>
+            </StackPanel>
+                <StackPanel Margin="10,0,0,0"  Grid.Row="1" Grid.Column="1" Width="{Binding Path=ActualWidth, ElementName=halfOfWidth}">
+                    <TextBlock Text="Список тестов" />
+                    <ComboBox x:Name="PositionComboBox" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left"  Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" IsSynchronizedWithCurrentItem="True" />
+                    <TextBlock Text="Список пользователей" />
+                    <ComboBox x:Name="PersonComboBox" ItemsSource="{Binding Persons}" SelectedItem="{Binding SelectedPerson, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" DisplayMemberPath="Mail" SelectedValuePath="ID" HorizontalAlignment="Left"  Width="{Binding Path=ActualWidth, ElementName=referenceWidth}" IsSynchronizedWithCurrentItem="True" />
+
+                    <StackPanel
+                        Margin="0,30,30,0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                        <Button
+                            Name="exitLoginButton"
+                            Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=Result}"
+                            Width="100" Height="35"
+                            Style="{StaticResource buttonCancel}"
+                            Margin="0,0,10,0">
+                            Удалить
+                        </Button>
+                        <Button
+                            Name="loginButton"
+                            Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=Result}"
+                            Width="100" Height="35"
+                            Style="{StaticResource buttonApply}">
+                            Добавить
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            
+        </StackPanel>
+        <Grid Grid.Column="0" Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="referenceWidth" Grid.Column="0" Grid.ColumnSpan="1"></Grid>
+            <Grid x:Name="halfOfWidth" Grid.Column="0" Grid.ColumnSpan="2"></Grid>
+        </Grid>
+
+    </Grid>
+
+
+</UserControl>
