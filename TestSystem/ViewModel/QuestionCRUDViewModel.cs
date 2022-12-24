@@ -90,6 +90,8 @@ namespace TestSystem.ViewModel
                       Questions.Insert(0, result);
                       result.ID = _model.CreateQuestion(result);
                       SelectedQuestion = result;
+                      SelectedQuestion.TypeID = _selectedType.ID;
+                      SelectedQuestion.PositionID = _selectedPosition.ID;
                   }));
             }
         }
@@ -127,6 +129,7 @@ namespace TestSystem.ViewModel
             Questions = new ObservableCollection<BLL.Models.QuestionModel>(_model.GetQuestions());
             Positions = new ObservableCollection<BLL.Models.PositionModel>(_model.GetPositions());
             Types = new ObservableCollection<BLL.Models.QuestionTypeModel>(_model.GetTypes());
+            foreach(BLL.Models.QuestionModel quest in Questions) { if(quest.Text != null) quest.Text = quest.Text.TrimEnd(); }
             _selectedQuestion = new BLL.Models.QuestionModel();
             _selectedPosition = new BLL.Models.PositionModel();
             _selectedType = new BLL.Models.QuestionTypeModel();

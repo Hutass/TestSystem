@@ -90,6 +90,9 @@ namespace TestSystem.ViewModel
                       Results.Insert(0, result);
                       result.ID = _model.CreateResult(result);
                       SelectedResult = result;
+                      SelectedResult.PositionID = _selectedPosition.ID;
+                      SelectedResult.PersonID = _selectedPerson.ID;
+
                   }));
             }
         }

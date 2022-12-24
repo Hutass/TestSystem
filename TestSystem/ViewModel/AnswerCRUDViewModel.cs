@@ -74,6 +74,7 @@ namespace TestSystem.ViewModel
                       Answers.Insert(0, result);
                       result.ID = _model.CreateAnswer(result);
                       SelectedAnswer = result;
+                      SelectedAnswer.QuestionID = _selectedQuestion.ID;
                   }));
             }
         }
@@ -109,7 +110,7 @@ namespace TestSystem.ViewModel
             _currentUser = currentUser;
             _control = control;
             Answers = new ObservableCollection<BLL.Models.AnswerModel>(_model.GetAnswers());
-            foreach(BLL.Models.AnswerModel ans in Answers) { ans.Text = ans.Text.TrimEnd(); };
+            foreach(BLL.Models.AnswerModel ans in Answers) { if(ans.Text != null) ans.Text = ans.Text.TrimEnd(); };
             Questions = new ObservableCollection<BLL.Models.QuestionModel>(_model.GetQuestions());
             _selectedAnswer = new BLL.Models.AnswerModel();
             _selectedQuestion = new BLL.Models.QuestionModel();

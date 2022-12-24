@@ -75,6 +75,8 @@ namespace TestSystem.ViewModel
                       Persones.Insert(0, result);
                       result.ID = _model.CreatePerson(result);
                       SelectedPerson = result;
+                      SelectedPerson.RightsID = _selectedRights.ID;
+
                   }));
             }
         }
